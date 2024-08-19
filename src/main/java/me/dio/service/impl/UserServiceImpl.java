@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
@@ -81,6 +82,11 @@ public class UserServiceImpl implements UserService {
         if (UNCHANGEABLE_USER_ID.equals(id)) {
             throw new BusinessException("User with ID %d can not be %s.".formatted(UNCHANGEABLE_USER_ID, operation));
         }
+    }
+
+    @Override
+    public User findByName(String username) {
+        return userRepository.findByName(username);
     }
 }
 

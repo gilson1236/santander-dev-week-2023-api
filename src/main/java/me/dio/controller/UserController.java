@@ -42,6 +42,17 @@ public record UserController(UserService userService) {
         return ResponseEntity.ok(new UserDto(user));
     }
 
+    @GetMapping("/username")
+    @Operation(summary = "Get a user by username", description = "Retrieve a specific user based on its username")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operation succesfull"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    public ResponseEntity<UserDto> findByName(@PathVariable String username){
+        var user = userService.findByName(username);
+        return ResponseEntity.ok(new UserDto(user));
+    }
+
     @PostMapping
     @Operation(summary = "Create a new user", description = "Create a new user and return the created user's data")
     @ApiResponses(value = { 
